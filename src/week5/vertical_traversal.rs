@@ -88,7 +88,7 @@ mod test {
     }
 
     #[test]
-    fn test1() {
+    fn example1() {
         let root = cell(
             3,
             cell(9, None, None),
@@ -101,7 +101,7 @@ mod test {
     }
 
     #[test]
-    fn test2() {
+    fn example2() {
         let root = cell(
             1,
             cell(2, cell(4, None, None), cell(5, None, None)),
