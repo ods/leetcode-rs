@@ -5,36 +5,24 @@ struct Solution;
 
 impl Solution {
     pub fn next_permutation(nums: &mut Vec<i32>) {
-        if nums.len() < 2 {
+        let n = nums.len();
+        if n < 2 {
             return;
         }
 
         // https://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order
         // Find the largest index k such that a[k] < a[k + 1]
-        let k = match nums
-            .windows(2)
-            .enumerate()
-            .rfind(|(_, pair)| pair[0] < pair[1])
-        {
+        let k = match (0..n - 1).rfind(|&i| nums[i] < nums[i + 1]) {
             None => {
                 // If no such index exists, the permutation is the last
                 // permutation
                 nums.reverse();
                 return;
             }
-            Some((idx, _)) => idx,
+            Some(i) => i,
         };
-
         // Find the largest index l greater than k such that a[k] < a[l]
-        let l = k
-            + 1
-            + nums[k + 1..]
-                .iter()
-                .enumerate()
-                .rfind(|(_, &val)| nums[k] < val)
-                .unwrap()
-                .0;
-        dbg!(k, l);
+        let l = (k + 1..n).rfind(|&i| nums[k] < nums[i]).unwrap();
 
         // Swap the value of a[k] with that of a[l]
         nums.swap(k, l);
@@ -74,5 +62,12 @@ mod test {
         let mut nums = vec![1];
         Solution::next_permutation(&mut nums);
         assert_eq!(nums, vec![1]);
+    }
+
+    #[test]
+    fn fail1() {
+        let mut nums = vec![1, 2];
+        Solution::next_permutation(&mut nums);
+        assert_eq!(nums, vec![2, 1]);
     }
 }
