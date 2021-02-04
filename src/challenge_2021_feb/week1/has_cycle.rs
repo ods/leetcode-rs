@@ -21,6 +21,12 @@ impl ListNode {
     }
 }
 
+// impl Drop for ListNode {
+//     fn drop(&mut self) {
+//         println!("Dropping ListNode with val={}", self.val);
+//     }
+// }
+
 impl Solution {
     fn has_cycle(list: Option<Rc<ListNode>>) -> bool {
         // Floyd’s Cycle-Finding Algorithm
@@ -48,7 +54,10 @@ impl Solution {
 mod test {
     use super::*;
 
-    fn from_arr(vals: &[i32], cycle_pos: i32) -> Option<Rc<ListNode>> {
+    fn from_arr(
+        vals: &[i32],
+        cycle_pos: i32,
+    ) -> (Option<Rc<ListNode>>, Option<Rc<ListNode>>) {
         let mut first = None;
         let mut current = None;
         let mut cycle_node = None;
@@ -69,23 +78,35 @@ mod test {
             }
         }
         if cycle_node.is_some() {
-            current.unwrap().next.replace(cycle_node);
+            current.unwrap().next.replace(cycle_node.clone());
         }
-        first
+        (first, cycle_node)
+    }
+
+    fn check(vals: &[i32], cycle_pos: i32) {
+        let (list, cycle_node) = from_arr(vals, cycle_pos);
+        let res = Solution::has_cycle(list);
+
+        // Manually break cycle to avoid leaks
+        if let Some(inner) = cycle_node {
+            inner.next.replace(None);
+        }
+
+        assert_eq!(res, cycle_pos >= 0);
     }
 
     #[test]
     fn example1() {
-        assert_eq!(Solution::has_cycle(from_arr(&[3, 2, 0, -4], 1)), true)
+        check(&[3, 2, 0, -4], 1);
     }
 
     #[test]
     fn example2() {
-        assert_eq!(Solution::has_cycle(from_arr(&[1, 2], 0)), true)
+        check(&[1, 2], 0);
     }
 
     #[test]
     fn example3() {
-        assert_eq!(Solution::has_cycle(from_arr(&[1], -1)), false)
+        check(&[1], -1);
     }
 }
