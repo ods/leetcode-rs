@@ -41,26 +41,40 @@ fn list_to_vec(list: &mut Option<Box<ListNode>>) -> Vec<i32> {
 
 struct Solution;
 
+use std::cmp::Ordering;
 use std::collections::BinaryHeap;
+
+impl PartialOrd<ListNode> for ListNode {
+    fn partial_cmp(&self, other: &ListNode) -> Option<Ordering> {
+        other.val.partial_cmp(&self.val)
+    }
+}
+
+impl Ord for ListNode {
+    fn cmp(&self, other: &Self) -> Ordering {
+        other.val.cmp(&self.val)
+    }
+}
 
 impl Solution {
     pub fn merge_k_lists(
         mut lists: Vec<Option<Box<ListNode>>>,
     ) -> Option<Box<ListNode>> {
-        let mut heap = BinaryHeap::new();
-        for (idx, list) in lists.iter_mut().enumerate() {
-            if let Some(val) = list_next(list) {
-                heap.push((-val, idx));
+        let mut heap = BinaryHeap::with_capacity(lists.len());
+        for list in lists.iter_mut() {
+            if list.is_some() {
+                heap.push(list.take());
             }
         }
         let mut leader: Box<ListNode> = Box::new(ListNode::new(0));
         let mut current = &mut leader;
-        while let Some((nval, idx)) = heap.pop() {
-            current.next = Some(Box::new(ListNode::new(-nval)));
+        while let Some(list) = heap.pop() {
+            current.next = list;
             current = current.next.as_mut().unwrap();
-            if let Some(val) = list_next(&mut lists[idx]) {
-                heap.push((-val, idx));
-            }
+            let next = current.next.take();
+            if next.is_some() {
+                heap.push(next)
+            };
         }
         leader.next
     }
