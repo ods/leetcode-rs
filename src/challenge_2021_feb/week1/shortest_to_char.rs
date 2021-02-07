@@ -20,7 +20,7 @@ impl Solution {
                     back_dist += 1;
                 }
             } else {
-                cur_dist += 1;
+                cur_dist = (cur_dist + 1).min(max_dist);
             }
             res.push(cur_dist);
         }
