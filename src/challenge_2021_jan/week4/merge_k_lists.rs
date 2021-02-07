@@ -21,16 +21,6 @@ fn vec_to_list(v: &[i32]) -> Option<Box<ListNode>> {
         .fold(None, |next, &val| Some(Box::new(ListNode { val, next })))
 }
 
-fn rev_list(mut list: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-    let mut prev = None;
-    while let Some(mut current_inner) = list.take() {
-        list = current_inner.next.take();
-        current_inner.next = prev;
-        prev = Some(current_inner);
-    }
-    prev.take()
-}
-
 fn list_next(list: &mut Option<Box<ListNode>>) -> Option<i32> {
     match list.take() {
         None => None,
@@ -63,17 +53,16 @@ impl Solution {
                 heap.push((-val, idx));
             }
         }
-        let mut res = None;
+        let mut leader: Box<ListNode> = Box::new(ListNode::new(0));
+        let mut current = &mut leader;
         while let Some((nval, idx)) = heap.pop() {
-            res = Some(Box::new(ListNode {
-                val: -nval,
-                next: res,
-            }));
+            current.next = Some(Box::new(ListNode::new(-nval)));
+            current = current.next.as_mut().unwrap();
             if let Some(val) = list_next(&mut lists[idx]) {
                 heap.push((-val, idx));
             }
         }
-        rev_list(res)
+        leader.next
     }
 }
 
@@ -102,10 +91,5 @@ mod test {
     #[test]
     fn exmaple3() {
         check(&[&[]], &[]);
-    }
-
-    #[test]
-    fn test_rev() {
-        assert_eq!(rev_list(vec_to_list(&[1, 2, 3])), vec_to_list(&[3, 2, 1]));
     }
 }
