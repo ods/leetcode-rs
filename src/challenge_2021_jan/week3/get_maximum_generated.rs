@@ -12,14 +12,13 @@ impl Solution {
         if n < 2 {
             return nums[n as usize];
         }
-        let mut num = 0;
         let mut max = 1;
         for i in 2..=(n as usize) {
-            if i % 2 == 0 {
-                num = nums[i / 2];
+            let num = if i % 2 == 0 {
+                nums[i / 2]
             } else {
-                num = nums[i / 2] + nums[i / 2 + 1];
-            }
+                nums[i / 2] + nums[i / 2 + 1]
+            };
             nums[i] = num;
             max = max.max(num);
         }
