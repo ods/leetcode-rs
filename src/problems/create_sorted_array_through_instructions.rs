@@ -3,10 +3,9 @@
 
 struct Solution;
 
-use std::cmp::min;
-
 const MODULO: i32 = 1_000_000_007;
 
+#[cfg(disable)]
 impl Solution {
     pub fn create_sorted_array(instructions: Vec<i32>) -> i32 {
         let mut res = Vec::with_capacity(instructions.len());
@@ -15,7 +14,7 @@ impl Solution {
             let value = inst * 2;
             let lower = res.binary_search(&(value - 1)).unwrap_err();
             let upper = res.binary_search(&(value + 1)).unwrap_err();
-            cost += min(lower, res.len() - upper) as i32;
+            cost += lower.min(res.len() - upper) as i32;
             res.insert(upper, value);
 
             if cost > MODULO {
@@ -23,6 +22,50 @@ impl Solution {
             }
         }
         cost
+    }
+}
+
+// Raybko (a.k.a. Fenwick) tree
+struct RyabkoTree(Vec<usize>);
+
+impl RyabkoTree {
+    fn new(max: usize) -> Self {
+        Self(vec![0; max + 1])
+    }
+    fn add(&mut self, mut num: usize) {
+        while num < self.0.len() {
+            self.0[num] += 1;
+            num += num - (num & (num - 1));
+        }
+    }
+    fn get(&self, mut num: usize) -> usize {
+        let mut sum = 0;
+        loop {
+            sum += self.0[num];
+            if num == 0 {
+                break sum;
+            }
+            let last_bit = num - (num & (num - 1));
+            if num < last_bit {
+                break sum;
+            }
+            num -= last_bit;
+        }
+    }
+}
+
+impl Solution {
+    pub fn create_sorted_array(instructions: Vec<i32>) -> i32 {
+        let mut tree =
+            RyabkoTree::new(*instructions.iter().max().unwrap_or(&0) as usize);
+        let mut cost = 0;
+        for (count, &num) in instructions.iter().enumerate() {
+            let lower = tree.get((num - 1) as usize);
+            let upper = count - tree.get(num as usize);
+            cost = (cost + lower.min(upper) as i32) % MODULO;
+            tree.add(num as usize);
+        }
+        cost as i32
     }
 }
 
