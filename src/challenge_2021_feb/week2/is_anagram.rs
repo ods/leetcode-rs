@@ -26,6 +26,20 @@ impl Solution {
     }
 }
 
+#[cfg(disable)]
+impl Solution {
+    pub fn is_anagram(s: String, t: String) -> bool {
+        if s.len() != t.len() {
+            return false;
+        }
+        let mut sv = s.chars().collect::<Vec<_>>();
+        let mut tv = t.chars().collect::<Vec<_>>();
+        sv.sort_unstable();
+        tv.sort_unstable();
+        sv == tv
+    }
+}
+
 mod test {
     use super::*;
 
