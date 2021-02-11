@@ -1,1 +1,2 @@
+mod create_sorted_array_through_instructions;
 mod rotate_image;
