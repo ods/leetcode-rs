@@ -8,39 +8,30 @@ use std::collections::VecDeque;
 impl Solution {
     pub fn is_bipartite(graph: Vec<Vec<i32>>) -> bool {
         let mut which = vec![0; graph.len()];
-        let mut start = 0;
-        loop {
+        for (idx, edges) in graph.iter().enumerate() {
+            // Find first non-empty unvisited
+            if which[idx] != 0 || edges.is_empty() {
+                continue;
+            };
+
+            // Mark all reachable from it
             let mut deque = VecDeque::new();
-            match graph[start..]
-                .iter()
-                .enumerate()
-                .filter(|(idx, edges)| {
-                    !edges.is_empty() && which[start + idx] == 0
-                })
-                .next()
-            {
-                None => {
-                    return true;
-                }
-                Some((idx, _)) => {
-                    start += idx;
-                    which[start] = 1;
-                    deque.push_back(start);
-                }
-            }
+            which[idx] = 1;
+            deque.push_back(idx);
             while let Some(idx) = deque.pop_front() {
                 let set = which[idx];
-                for node in &graph[idx] {
-                    let node = *node as usize;
-                    if which[node] == set {
+                for next in &graph[idx] {
+                    let next = *next as usize;
+                    if which[next] == set {
                         return false;
-                    } else if which[node] == 0 {
-                        which[node] = -set;
-                        deque.push_back(node);
+                    } else if which[next] == 0 {
+                        which[next] = -set;
+                        deque.push_back(next);
                     }
                 }
             }
         }
+        true
     }
 }
 
