@@ -130,14 +130,15 @@ impl Solution {
 
 mod test {
     use super::*;
+    use crate::matrix;
 
     #[test]
     fn example1() {
         assert_eq!(
-            Solution::minimum_effort_path(vec![
-                vec![1, 2, 2],
-                vec![3, 8, 2],
-                vec![5, 3, 5],
+            Solution::minimum_effort_path(matrix![
+                [1, 2, 2],
+                [3, 8, 2],
+                [5, 3, 5],
             ]),
             2,
         );
@@ -146,10 +147,10 @@ mod test {
     #[test]
     fn example2() {
         assert_eq!(
-            Solution::minimum_effort_path(vec![
-                vec![1, 2, 3],
-                vec![3, 8, 4],
-                vec![5, 3, 5],
+            Solution::minimum_effort_path(matrix![
+                [1, 2, 3],
+                [3, 8, 4],
+                [5, 3, 5],
             ]),
             1,
         );
@@ -158,12 +159,12 @@ mod test {
     #[test]
     fn example3() {
         assert_eq!(
-            Solution::minimum_effort_path(vec![
-                vec![1, 2, 1, 1, 1],
-                vec![1, 2, 1, 2, 1],
-                vec![1, 2, 1, 2, 1],
-                vec![1, 2, 1, 2, 1],
-                vec![1, 1, 1, 2, 1],
+            Solution::minimum_effort_path(matrix![
+                [1, 2, 1, 1, 1],
+                [1, 2, 1, 2, 1],
+                [1, 2, 1, 2, 1],
+                [1, 2, 1, 2, 1],
+                [1, 1, 1, 2, 1],
             ]),
             0,
         );
@@ -171,6 +172,6 @@ mod test {
 
     #[test]
     fn test1() {
-        assert_eq!(Solution::minimum_effort_path(vec![vec![1000000]]), 0);
+        assert_eq!(Solution::minimum_effort_path(matrix![[1000000]]), 0);
     }
 }

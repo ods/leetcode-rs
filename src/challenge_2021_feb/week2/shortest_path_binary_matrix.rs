@@ -62,14 +62,12 @@ impl Solution {
 
 mod test {
     use super::*;
+    use crate::matrix;
 
     #[test]
     fn example1() {
         assert_eq!(
-            Solution::shortest_path_binary_matrix(vec![
-                vec![0, 1],
-                vec![1, 0],
-            ]),
+            Solution::shortest_path_binary_matrix(matrix![[0, 1], [1, 0]]),
             2,
         );
     }
@@ -77,10 +75,10 @@ mod test {
     #[test]
     fn example2() {
         assert_eq!(
-            Solution::shortest_path_binary_matrix(vec![
-                vec![0, 0, 0],
-                vec![1, 1, 0],
-                vec![1, 1, 0],
+            Solution::shortest_path_binary_matrix(matrix![
+                [0, 0, 0],
+                [1, 1, 0],
+                [1, 1, 0],
             ]),
             4,
         );
@@ -89,10 +87,10 @@ mod test {
     #[test]
     fn test_blocked() {
         assert_eq!(
-            Solution::shortest_path_binary_matrix(vec![
-                vec![0, 1, 1],
-                vec![1, 1, 1],
-                vec![1, 1, 0],
+            Solution::shortest_path_binary_matrix(matrix![
+                [0, 1, 1],
+                [1, 1, 1],
+                [1, 1, 0],
             ]),
             -1,
         );
@@ -101,10 +99,10 @@ mod test {
     #[test]
     fn fail1() {
         assert_eq!(
-            Solution::shortest_path_binary_matrix(vec![
-                vec![1, 0, 0],
-                vec![1, 1, 0],
-                vec![1, 1, 0],
+            Solution::shortest_path_binary_matrix(matrix![
+                [1, 0, 0],
+                [1, 1, 0],
+                [1, 1, 0],
             ]),
             -1,
         );
@@ -112,13 +110,13 @@ mod test {
 
     #[test]
     fn fail2() {
-        assert_eq!(Solution::shortest_path_binary_matrix(vec![vec![0]]), 1);
+        assert_eq!(Solution::shortest_path_binary_matrix(matrix![[0]]), 1);
     }
 
     #[test]
     fn test_big() {
         assert_eq!(
-            Solution::shortest_path_binary_matrix(vec![vec![0; 100]; 100]),
+            Solution::shortest_path_binary_matrix(matrix![0; 100; 100]),
             100,
         );
     }

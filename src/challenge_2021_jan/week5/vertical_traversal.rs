@@ -79,6 +79,7 @@ impl Solution {
 
 mod test {
     use super::*;
+    use crate::matrix;
 
     fn cell(
         val: i32,
@@ -97,7 +98,7 @@ mod test {
         );
         assert_eq!(
             Solution::vertical_traversal(root),
-            vec![vec![9], vec![3, 15], vec![20], vec![7]]
+            matrix![[9], [3, 15], [20], [7]]
         );
     }
 
@@ -110,7 +111,7 @@ mod test {
         );
         assert_eq!(
             Solution::vertical_traversal(root),
-            vec![vec![4], vec![2], vec![1, 5, 6], vec![3], vec![7]]
+            matrix![[4], [2], [1, 5, 6], [3], [7]]
         );
     }
 }

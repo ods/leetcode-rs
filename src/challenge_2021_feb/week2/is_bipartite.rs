@@ -37,16 +37,12 @@ impl Solution {
 
 mod test {
     use super::*;
+    use crate::matrix;
 
     #[test]
     fn example1() {
         assert_eq!(
-            Solution::is_bipartite(vec![
-                vec![1, 3],
-                vec![0, 2],
-                vec![1, 3],
-                vec![0, 2]
-            ]),
+            Solution::is_bipartite(matrix![[1, 3], [0, 2], [1, 3], [0, 2]]),
             true,
         )
     }
@@ -54,11 +50,11 @@ mod test {
     #[test]
     fn example2() {
         assert_eq!(
-            Solution::is_bipartite(vec![
-                vec![1, 2, 3],
-                vec![0, 2],
-                vec![0, 1, 3],
-                vec![0, 2]
+            Solution::is_bipartite(matrix![
+                [1, 2, 3],
+                [0, 2],
+                [0, 1, 3],
+                [0, 2]
             ]),
             false,
         )
@@ -66,12 +62,12 @@ mod test {
 
     #[test]
     fn test_single() {
-        assert_eq!(Solution::is_bipartite(vec![vec![]]), true)
+        assert_eq!(Solution::is_bipartite(matrix![]), true)
     }
 
     #[test]
     fn test_even_circle() {
-        let mut graph = vec![vec![0_i32; 2]; 100];
+        let mut graph = matrix![0_i32; 2; 100];
         for i in 0..100 {
             graph[i][0] = (i + 99).rem_euclid(100) as _;
             graph[i][1] = (i + 1).rem_euclid(100) as _;
@@ -81,7 +77,7 @@ mod test {
 
     #[test]
     fn test_odd_circle() {
-        let mut graph = vec![vec![0_i32; 2]; 99];
+        let mut graph = matrix![0_i32; 2; 99];
         for i in 0..99 {
             graph[i][0] = (i + 98).rem_euclid(99) as _;
             graph[i][1] = (i + 1).rem_euclid(99) as _;
@@ -92,19 +88,19 @@ mod test {
     #[test]
     fn fail1() {
         assert_eq!(
-            Solution::is_bipartite(vec![
-                vec![3],
-                vec![3],
-                vec![],
-                vec![0, 1],
-                vec![6],
-                vec![],
-                vec![4],
-                vec![9],
-                vec![],
-                vec![7],
+            Solution::is_bipartite(matrix![
+                [3],
+                [3],
+                [],
+                [0, 1],
+                [6],
+                [],
+                [4],
+                [9],
+                [],
+                [7],
             ]),
-            true
+            true,
         )
     }
 }
