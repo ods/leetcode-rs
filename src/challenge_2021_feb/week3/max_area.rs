@@ -7,17 +7,15 @@ impl Solution {
     pub fn max_area(height: Vec<i32>) -> i32 {
         let mut low = 0;
         let mut high = height.len() - 1;
-        let get_area = |low: usize, high: usize| {
-            height[low].min(height[high]) * (high - low) as i32
-        };
-        let mut max_area = get_area(low, high);
+        let mut max_area = 0;
         while low < high {
+            max_area = max_area
+                .max(height[low].min(height[high]) * (high - low) as i32);
             if height[low] < height[high] {
                 low += 1;
             } else {
                 high -= 1;
             }
-            max_area = max_area.max(get_area(low, high));
         }
         max_area
     }
