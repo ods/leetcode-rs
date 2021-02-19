@@ -42,22 +42,22 @@ mod test {
     use super::*;
 
     fn is_valid(s: &str) -> bool {
-        let mut stack = Vec::new();
+        let mut openned = 0;
         for c in s.chars() {
             match c {
                 ')' => {
-                    if stack.pop() != Some('(') {
+                    if openned == 0 {
                         return false;
                     }
+                    openned -= 1;
                 }
                 '(' => {
-                    stack.push(c);
-                    continue;
+                    openned += 1;
                 }
                 _ => {}
             };
         }
-        stack.is_empty()
+        openned == 0
     }
 
     fn check(s: &str, removed: usize) {
