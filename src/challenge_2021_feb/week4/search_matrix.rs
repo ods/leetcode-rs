@@ -5,6 +5,7 @@ struct Solution;
 
 use std::cmp::Ordering::*;
 
+#[cfg(disable)]
 impl Solution {
     pub fn search_matrix(matrix: Vec<Vec<i32>>, target: i32) -> bool {
         let m = matrix.len();
@@ -21,6 +22,51 @@ impl Solution {
             }
         }
         false
+    }
+}
+
+use std::ops::Range;
+
+impl Solution {
+    pub fn search_matrix(matrix: Vec<Vec<i32>>, target: i32) -> bool {
+        let m = matrix.len();
+        let n = matrix[0].len();
+        Self::search_block(&matrix, target, &(0..m), &(0..n))
+    }
+
+    fn search_block(
+        matrix: &Vec<Vec<i32>>,
+        target: i32,
+        ir: &Range<usize>,
+        jr: &Range<usize>,
+    ) -> bool {
+        // `is_empty` doesn't work in Leetcode's version, the replacement could
+        // be: `if ir.start == ir.end || jr.start == jr.end`
+        if ir.is_empty() || jr.is_empty() {
+            return false;
+        }
+        let im = (ir.start + ir.end) / 2;
+        let jm = (jr.start + jr.end) / 2;
+        match matrix[im][jm].cmp(&target) {
+            Equal => true,
+            Less => {
+                Self::search_block(
+                    matrix,
+                    target,
+                    &(ir.start..im + 1),
+                    &(jm + 1..jr.end),
+                ) || Self::search_block(matrix, target, &(im + 1..ir.end), jr)
+            }
+            Greater => {
+                Self::search_block(matrix, target, &(ir.start..im), jr)
+                    || Self::search_block(
+                        matrix,
+                        target,
+                        &(im..ir.end),
+                        &(jr.start..jm),
+                    )
+            }
+        }
     }
 }
 
