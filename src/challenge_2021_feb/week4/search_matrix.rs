@@ -3,36 +3,28 @@
 
 struct Solution;
 
-use std::{cmp::Ordering::*, collections::BinaryHeap};
-
 impl Solution {
     pub fn search_matrix(matrix: Vec<Vec<i32>>, target: i32) -> bool {
         let m = matrix.len();
         let n = matrix[0].len();
-        let mut i = 0;
+        let mut i = m - 1;
         let mut j = 0;
-        while i < m - 1 && matrix[i][n - 1] < target {
-            i += 1;
-        }
-        while j < n - 1 && matrix[m - 1][j] < target {
-            j += 1;
-        }
-        let mut heap = BinaryHeap::new();
-        heap.push((-matrix[i][j], i, j));
-        while let Some((val, i, j)) = heap.pop() {
-            match target.cmp(&-val) {
-                Less => return false,
-                Equal => return true,
-                _ => {}
+        loop {
+            let mut moved = false;
+            while matrix[i][j] < target && j < n - 1 {
+                j += 1;
+                moved = true;
             }
-            if i < m - 1 {
-                heap.push((-matrix[i + 1][j], i + 1, j));
+            while matrix[i][j] > target && i > 0 {
+                i -= 1;
+                moved = true;
             }
-            if j < n - 1 {
-                heap.push((-matrix[i][j + 1], i, j + 1));
+            if matrix[i][j] == target {
+                break true;
+            } else if !moved {
+                break false;
             }
         }
-        false
     }
 }
 
@@ -71,6 +63,39 @@ mod test {
                 20,
             ),
             false,
+        );
+    }
+
+    #[test]
+    fn test_big() {
+        let mut matrix = matrix![0_i32; 300; 300];
+        for i in 0..300 {
+            for j in 0..300 {
+                matrix[i][j] = (i + j) as i32;
+            }
+        }
+        assert_eq!(Solution::search_matrix(matrix, 500), true);
+    }
+
+    #[test]
+    fn fail1() {
+        assert_eq!(Solution::search_matrix(matrix![[-5]], -5), true);
+    }
+
+    #[test]
+    fn fail2() {
+        assert_eq!(
+            Solution::search_matrix(
+                matrix![
+                    [1, 2, 3, 4, 5],
+                    [6, 7, 8, 9, 10],
+                    [11, 12, 13, 14, 15],
+                    [16, 17, 18, 19, 20],
+                    [21, 22, 23, 24, 25],
+                ],
+                5
+            ),
+            true,
         );
     }
 }
