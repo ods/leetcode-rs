@@ -3,28 +3,24 @@
 
 struct Solution;
 
+use std::cmp::Ordering::*;
+
 impl Solution {
     pub fn search_matrix(matrix: Vec<Vec<i32>>, target: i32) -> bool {
         let m = matrix.len();
         let n = matrix[0].len();
         let mut i = m - 1;
         let mut j = 0;
-        loop {
-            let mut moved = false;
-            while matrix[i][j] < target && j < n - 1 {
-                j += 1;
-                moved = true;
-            }
-            while matrix[i][j] > target && i > 0 {
-                i -= 1;
-                moved = true;
-            }
-            if matrix[i][j] == target {
-                break true;
-            } else if !moved {
-                break false;
+        while j < n {
+            match matrix[i][j].cmp(&target) {
+                Equal => return true,
+                Greater if i > 0 => {
+                    i -= 1;
+                }
+                _ => j += 1,
             }
         }
+        false
     }
 }
 
@@ -84,6 +80,11 @@ mod test {
 
     #[test]
     fn fail2() {
+        assert_eq!(Solution::search_matrix(matrix![[-5]], -10), false);
+    }
+
+    #[test]
+    fn fail3() {
         assert_eq!(
             Solution::search_matrix(
                 matrix![
