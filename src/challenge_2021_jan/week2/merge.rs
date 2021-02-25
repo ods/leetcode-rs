@@ -21,6 +21,7 @@ impl Solution {
     }
 }
 
+#[cfg(test)]
 mod test {
     #[test]
     fn example1() {

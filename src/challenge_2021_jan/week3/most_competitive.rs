@@ -113,6 +113,7 @@ impl Solution {
     }
 }
 
+#[cfg(test)]
 mod test {
     use super::*;
 

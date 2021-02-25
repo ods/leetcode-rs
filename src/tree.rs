@@ -57,6 +57,7 @@ impl TreeNode {
     }
 }
 
+#[cfg(test)]
 mod test {
     use super::*;
 

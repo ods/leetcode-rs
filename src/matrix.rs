@@ -12,6 +12,7 @@ macro_rules! matrix {
     };
 }
 
+#[cfg(test)]
 mod test {
     #[test]
     fn empty() {
