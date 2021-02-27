@@ -11,20 +11,14 @@ impl Solution {
         let mut num = (dividend as i64).abs();
         let den = (divisor as i64).abs();
 
-        let mut mult2 = 0;
-        while den << mult2 < num {
-            mult2 += 1;
-        }
-
         let mut res = 0_i64;
-        while mult2 >= 0 {
+        for exp2 in (0..32).rev() {
             res <<= 1;
-            let prod = den << mult2;
+            let prod = den << exp2;
             if num >= prod {
                 num -= prod;
                 res += 1;
             }
-            mult2 -= 1;
         }
 
         (if negative { -res } else { res })
