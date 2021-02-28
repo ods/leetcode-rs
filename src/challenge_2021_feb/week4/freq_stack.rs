@@ -1,32 +1,36 @@
 // Maximum Frequency Stack
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/587/week-4-february-22nd-february-28th/3655/
 
-use std::collections::{BinaryHeap, HashMap};
+use std::collections::HashMap;
 
 struct FreqStack {
-    heap: BinaryHeap<(usize, usize, i32)>,
+    stacks: Vec<Vec<i32>>,
     freqs: HashMap<i32, usize>,
-    gen: usize,
 }
 
 impl FreqStack {
     fn new() -> Self {
         Self {
-            heap: BinaryHeap::new(),
+            stacks: Vec::new(),
             freqs: HashMap::new(),
-            gen: 0,
         }
     }
 
     fn push(&mut self, x: i32) {
         let freq = self.freqs.entry(x).or_default();
-        self.heap.push((*freq, self.gen, x));
         *freq += 1;
-        self.gen += 1;
+        if self.stacks.len() < *freq {
+            self.stacks.push(Vec::new());
+        }
+        self.stacks[*freq - 1].push(x);
     }
 
     fn pop(&mut self) -> i32 {
-        let (_, _, x) = self.heap.pop().unwrap();
+        let last_stack = self.stacks.last_mut().unwrap();
+        let x = last_stack.pop().unwrap();
+        if last_stack.is_empty() {
+            self.stacks.pop();
+        }
         let freq = self.freqs.get_mut(&x).unwrap();
         *freq -= 1;
         if *freq == 0 {
