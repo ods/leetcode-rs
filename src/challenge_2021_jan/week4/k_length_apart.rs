@@ -18,7 +18,7 @@ impl Solution {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     fn check(arr: &[i32], k: i32, expected: bool) {

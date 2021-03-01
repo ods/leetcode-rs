@@ -26,7 +26,7 @@ impl Solution {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     fn check(s: &str, expected: &[&str]) {

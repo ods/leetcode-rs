@@ -114,7 +114,7 @@ impl Solution {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     fn check(src: Vec<i32>, k: i32, res: Vec<i32>) {

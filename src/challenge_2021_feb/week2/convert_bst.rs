@@ -26,7 +26,7 @@ impl Solution {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     fn check(root: &[i32], expected: &[i32]) {

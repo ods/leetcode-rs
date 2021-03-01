@@ -16,7 +16,7 @@ impl Solution {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     fn check(word1: &[&str], word2: &[&str], expected: bool) {

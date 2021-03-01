@@ -22,7 +22,7 @@ impl Solution {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     #[test]
     fn example1() {
         let mut arr1: Vec<i32> = vec![1, 2, 3, 0, 0, 0];

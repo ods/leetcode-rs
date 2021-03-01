@@ -39,7 +39,7 @@ impl Solution {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     fn is_valid(s: &str) -> bool {

@@ -54,7 +54,7 @@ fn is_close(word1: &str, word2: &str) -> bool {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     #[test]

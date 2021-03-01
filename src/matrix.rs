@@ -13,7 +13,7 @@ macro_rules! matrix {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     #[test]
     fn empty() {
         let m1: Vec<Vec<i32>> = matrix![];
