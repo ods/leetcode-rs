@@ -1,2 +1,3 @@
 mod create_sorted_array_through_instructions;
+mod find_the_most_competitive_subsequence;
 mod rotate_image;
