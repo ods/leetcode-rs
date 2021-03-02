@@ -7,24 +7,18 @@ impl Solution {
     pub fn find_error_nums(nums: Vec<i32>) -> Vec<i32> {
         let mut seen = vec![0_u128; (nums.len() + 127) >> 7];
         let mut dup = 0;
-        for num in nums {
-            let idx = (num - 1) >> 7;
+        let mut missing = 0;
+        for (idx, &num) in nums.iter().enumerate() {
+            let block_idx = (num - 1) >> 7;
             let mask = 1 << ((num - 1) & 0x7f);
-            let block = seen.get_mut(idx as usize).unwrap();
+            let block = seen.get_mut(block_idx as usize).unwrap();
             if *block & mask != 0 {
                 dup = num
             }
             *block |= mask;
+            missing ^= num ^ (idx as i32 + 1);
         }
-        for (idx, &block) in seen.iter().enumerate() {
-            if block != std::u128::MAX {
-                // There's not trailing_ones() in Leetcode's version of rust
-                let bit = (!block).trailing_zeros() as usize;
-                let missing = ((idx << 7) + bit + 1) as _;
-                return vec![dup, missing];
-            }
-        }
-        unreachable!();
+        vec![dup, missing ^ dup]
     }
 }
 
