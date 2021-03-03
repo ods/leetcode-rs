@@ -4,21 +4,21 @@
 struct Solution;
 
 impl Solution {
-    pub fn find_error_nums(nums: Vec<i32>) -> Vec<i32> {
-        let mut seen = vec![0_u128; (nums.len() + 127) >> 7];
+    pub fn find_error_nums(mut nums: Vec<i32>) -> Vec<i32> {
         let mut dup = 0;
         let mut missing = 0;
-        for (idx, &num) in nums.iter().enumerate() {
-            let block_idx = (num - 1) >> 7;
-            let mask = 1 << ((num - 1) & 0x7f);
-            let block = seen.get_mut(block_idx as usize).unwrap();
-            if *block & mask != 0 {
-                dup = num
+        for idx in 0..nums.len() {
+            missing ^= idx as i32 + 1;
+            let num = nums[idx].abs();
+            let seen = nums.get_mut(num as usize - 1).unwrap();
+            if *seen > 0 {
+                *seen = -*seen;
+                missing ^= num;
+            } else {
+                dup = num;
             }
-            *block |= mask;
-            missing ^= num ^ (idx as i32 + 1);
         }
-        vec![dup, missing ^ dup]
+        vec![dup, missing]
     }
 }
 
