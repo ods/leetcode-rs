@@ -4,12 +4,19 @@
 struct Solution;
 
 impl Solution {
+    #[cfg(disable)]
     pub fn missing_number(nums: Vec<i32>) -> i32 {
         let mut res = nums.len() as i32;
         for (idx, num) in nums.iter().enumerate() {
             res ^= idx as i32 ^ num;
         }
         res
+    }
+
+    pub fn missing_number(nums: Vec<i32>) -> i32 {
+        nums.iter()
+            .enumerate()
+            .fold(nums.len() as i32, |res, (idx, num)| res ^ num ^ idx as i32)
     }
 }
 
