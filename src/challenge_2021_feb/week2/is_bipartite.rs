@@ -1,7 +1,7 @@
 // Is Graph Bipartite?
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/585/week-2-february-8th-february-14th/3639/
 
-struct Solution;
+pub struct Solution;
 
 use std::collections::VecDeque;
 

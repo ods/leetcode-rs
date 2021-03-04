@@ -1,7 +1,7 @@
 // Find the Most Competitive Subsequence
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/581/week-3-january-15th-january-21st/3611/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     // Causes timeout
@@ -93,7 +93,7 @@ impl Solution {
         res
     }
 
-    fn most_competitive(nums: Vec<i32>, k: i32) -> Vec<i32> {
+    pub fn most_competitive(nums: Vec<i32>, k: i32) -> Vec<i32> {
         let n = nums.len();
         let k = k as usize;
         let mut arr = vec![];

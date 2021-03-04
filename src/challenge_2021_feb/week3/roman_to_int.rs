@@ -1,7 +1,7 @@
 // Roman to Integer
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/586/week-3-february-15th-february-21st/3646/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn roman_to_int(s: String) -> i32 {

@@ -5,7 +5,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
-struct Solution;
+pub struct Solution;
 
 pub struct ListNode {
     pub val: i32,
@@ -13,7 +13,7 @@ pub struct ListNode {
 }
 
 impl ListNode {
-    fn new(val: i32) -> Self {
+    pub fn new(val: i32) -> Self {
         Self {
             val,
             next: RefCell::new(None),
@@ -28,7 +28,7 @@ impl ListNode {
 // }
 
 impl Solution {
-    fn has_cycle(list: Option<Rc<ListNode>>) -> bool {
+    pub fn has_cycle(list: Option<Rc<ListNode>>) -> bool {
         // Floyd’s Cycle-Finding Algorithm
         let mut follower = list.clone();
         let mut leader = match list {

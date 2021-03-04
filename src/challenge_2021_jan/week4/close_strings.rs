@@ -3,7 +3,7 @@
 
 use std::collections::HashMap;
 
-struct Solution;
+pub struct Solution;
 
 #[derive(PartialEq, Eq)]
 struct Signature {

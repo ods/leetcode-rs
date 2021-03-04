@@ -1,7 +1,7 @@
 // Arithmetic Slices
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/586/week-3-february-15th-february-21st/3644/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn number_of_arithmetic_slices(a: Vec<i32>) -> i32 {

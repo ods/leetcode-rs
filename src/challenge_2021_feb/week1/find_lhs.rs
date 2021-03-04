@@ -1,7 +1,7 @@
 // Longest Harmonious Subsequence
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/584/week-1-february-1st-february-7th/3628/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn find_lhs(mut nums: Vec<i32>) -> i32 {

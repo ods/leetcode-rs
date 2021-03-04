@@ -1,7 +1,7 @@
 // Smallest String With A Given Numeric Value
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/582/week-4-january-22nd-january-28th/3619/
 
-struct Solution;
+pub struct Solution;
 
 // First solution
 #[cfg(disable)]

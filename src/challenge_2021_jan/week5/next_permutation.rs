@@ -1,7 +1,7 @@
 // Next Permutation
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/583/week-5-january-29th-january-31st/3623/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn next_permutation(nums: &mut Vec<i32>) {

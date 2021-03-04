@@ -1,6 +1,6 @@
-mod challenge_2021_feb;
-mod challenge_2021_jan;
-mod challenge_2021_mar;
-mod matrix;
-mod problems;
-mod tree;
+pub mod challenge_2021_feb;
+pub mod challenge_2021_jan;
+pub mod challenge_2021_mar;
+pub mod matrix;
+pub mod problems;
+pub mod tree;

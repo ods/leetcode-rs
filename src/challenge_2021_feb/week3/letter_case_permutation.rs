@@ -1,7 +1,7 @@
 // Letter Case Permutation
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/586/week-3-february-15th-february-21st/3642/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn letter_case_permutation(s: String) -> Vec<String> {

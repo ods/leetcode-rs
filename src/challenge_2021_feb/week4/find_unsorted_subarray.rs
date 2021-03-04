@@ -1,7 +1,7 @@
 // Shortest Unsorted Continuous Subarray
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/587/week-4-february-22nd-february-28th/3652/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn find_unsorted_subarray(nums: Vec<i32>) -> i32 {

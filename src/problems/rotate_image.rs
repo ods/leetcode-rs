@@ -1,7 +1,7 @@
 // 48. Rotate Image
 // https://leetcode.com/problems/rotate-image/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn rotate(matrix: &mut Vec<Vec<i32>>) {

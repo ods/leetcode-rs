@@ -1,7 +1,7 @@
 // Missing Number
 // https://leetcode.com/explore/challenge/card/march-leetcoding-challenge-2021/588/week-1-march-1st-march-7th/3659/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     #[cfg(disable)]

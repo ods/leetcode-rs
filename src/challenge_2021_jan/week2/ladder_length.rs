@@ -1,7 +1,7 @@
 // Word Ladder
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/580/week-2-january-8th-january-14th/3598/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn ladder_length(

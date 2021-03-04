@@ -23,7 +23,7 @@ impl TreeNode {
 use std::cell::RefCell;
 use std::rc::Rc;
 
-struct Solution;
+pub struct Solution;
 
 struct Vertical {
     neg: Vec<Vec<(i32, i32)>>,

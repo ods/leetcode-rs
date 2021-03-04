@@ -1,10 +1,10 @@
 // Convert BST to Greater Tree
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/585/week-2-february-8th-february-14th/3634/
 
-use crate::tree::{TreeNode, NULL};
+use crate::tree::TreeNode;
 use std::{cell::RefCell, rc::Rc};
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn convert_bst(
@@ -28,6 +28,7 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::tree::{TreeNode, NULL};
 
     fn check(root: &[i32], expected: &[i32]) {
         let root = TreeNode::from_arr(root);

@@ -1,7 +1,7 @@
 // Check If All 1's Are at Least Length K Places Away
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/582/week-4-january-22nd-january-28th/3616/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn k_length_apart(nums: Vec<i32>, k: i32) -> bool {

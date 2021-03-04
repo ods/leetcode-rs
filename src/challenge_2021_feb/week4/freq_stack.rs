@@ -3,20 +3,20 @@
 
 use std::collections::HashMap;
 
-struct FreqStack {
+pub struct FreqStack {
     stacks: Vec<Vec<i32>>,
     freqs: HashMap<i32, usize>,
 }
 
 impl FreqStack {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             stacks: Vec::new(),
             freqs: HashMap::new(),
         }
     }
 
-    fn push(&mut self, x: i32) {
+    pub fn push(&mut self, x: i32) {
         let freq = self.freqs.entry(x).or_default();
         *freq += 1;
         if self.stacks.len() < *freq {
@@ -25,7 +25,7 @@ impl FreqStack {
         self.stacks[*freq - 1].push(x);
     }
 
-    fn pop(&mut self) -> i32 {
+    pub fn pop(&mut self) -> i32 {
         let last_stack = self.stacks.last_mut().unwrap();
         let x = last_stack.pop().unwrap();
         if last_stack.is_empty() {

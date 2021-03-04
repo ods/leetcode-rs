@@ -1,7 +1,7 @@
 // Number of Steps to Reduce a Number to Zero
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/585/week-2-february-8th-february-14th/3637/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn number_of_steps(mut num: i32) -> i32 {

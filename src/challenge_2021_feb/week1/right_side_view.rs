@@ -1,7 +1,7 @@
-use crate::tree::{TreeNode, NULL};
+use crate::tree::TreeNode;
 use std::{cell::RefCell, rc::Rc};
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     fn visit(
@@ -28,6 +28,7 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::tree::{TreeNode, NULL};
 
     fn check(src: &[i32], expected: &[i32]) {
         assert_eq!(

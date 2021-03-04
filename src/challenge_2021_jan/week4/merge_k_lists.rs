@@ -15,31 +15,7 @@ impl ListNode {
     }
 }
 
-fn vec_to_list(v: &[i32]) -> Option<Box<ListNode>> {
-    v.iter()
-        .rev()
-        .fold(None, |next, &val| Some(Box::new(ListNode { val, next })))
-}
-
-fn list_next(list: &mut Option<Box<ListNode>>) -> Option<i32> {
-    match list.take() {
-        None => None,
-        Some(inner) => {
-            *list = inner.next;
-            Some(inner.val)
-        }
-    }
-}
-
-fn list_to_vec(list: &mut Option<Box<ListNode>>) -> Vec<i32> {
-    let mut res = vec![];
-    while let Some(val) = list_next(list) {
-        res.push(val);
-    }
-    res
-}
-
-struct Solution;
+pub struct Solution;
 
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
@@ -83,6 +59,30 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn vec_to_list(v: &[i32]) -> Option<Box<ListNode>> {
+        v.iter()
+            .rev()
+            .fold(None, |next, &val| Some(Box::new(ListNode { val, next })))
+    }
+
+    fn list_next(list: &mut Option<Box<ListNode>>) -> Option<i32> {
+        match list.take() {
+            None => None,
+            Some(inner) => {
+                *list = inner.next;
+                Some(inner.val)
+            }
+        }
+    }
+
+    fn list_to_vec(list: &mut Option<Box<ListNode>>) -> Vec<i32> {
+        let mut res = vec![];
+        while let Some(val) = list_next(list) {
+            res.push(val);
+        }
+        res
+    }
 
     fn check(src: &[&[i32]], expected: &[i32]) {
         let lists = src.iter().copied().map(vec_to_list).collect();

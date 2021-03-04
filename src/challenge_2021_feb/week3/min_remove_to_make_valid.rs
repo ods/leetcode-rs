@@ -1,7 +1,7 @@
 // Minimum Remove to Make Valid Parentheses
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/586/week-3-february-15th-february-21st/3645/
 
-struct Solution;
+pub struct Solution;
 
 use std::collections::HashSet;
 

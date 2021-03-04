@@ -3,7 +3,7 @@
 
 use std::cmp::Ordering;
 
-struct Solution;
+pub struct Solution;
 
 #[derive(Clone, Copy, Eq, PartialEq)]
 struct Candidate {

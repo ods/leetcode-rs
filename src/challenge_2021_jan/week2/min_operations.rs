@@ -1,7 +1,7 @@
 // Minimum Operations to Reduce X to Zero
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/580/week-2-january-8th-january-14th/3603/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn min_operations(nums: Vec<i32>, x: i32) -> i32 {

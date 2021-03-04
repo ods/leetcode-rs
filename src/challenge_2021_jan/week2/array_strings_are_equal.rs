@@ -1,7 +1,7 @@
 // Check If Two String Arrays are Equivalent
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/580/week-2-january-8th-january-14th/3597/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn array_strings_are_equal(

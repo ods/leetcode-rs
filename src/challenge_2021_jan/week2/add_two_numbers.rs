@@ -1,8 +1,6 @@
 // Add Two Numbers
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/580/week-2-january-8th-january-14th/3601/
 
-use std::iter::successors;
-
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
     pub val: i32,
@@ -11,40 +9,12 @@ pub struct ListNode {
 
 impl ListNode {
     #[inline]
-    fn new(val: i32) -> Self {
+    pub fn new(val: i32) -> Self {
         ListNode { next: None, val }
     }
 }
 
-pub fn list_from_num(num: i64) -> Option<Box<ListNode>> {
-    successors(Some((num % 10, num / 10)), |&(_, num)| {
-        if num == 0 {
-            None
-        } else {
-            Some((num % 10, num / 10))
-        }
-    })
-    .map(|(rem, _)| rem as i32)
-    .collect::<Vec<i32>>()
-    .iter()
-    .rev()
-    .fold(None, |head, &digit| {
-        Some(Box::new(ListNode {
-            val: digit,
-            next: head,
-        }))
-    })
-}
-
-pub fn num_from_list(l: Option<Box<ListNode>>) -> i64 {
-    successors(l.as_ref(), |&node| node.next.as_ref())
-        .fold((0_i64, 1), |(num, mult), node| {
-            (num + node.val as i64 * mult, mult * 10)
-        })
-        .0
-}
-
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn add_two_numbers(
@@ -82,6 +52,35 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::iter::successors;
+
+    fn list_from_num(num: i64) -> Option<Box<ListNode>> {
+        successors(Some((num % 10, num / 10)), |&(_, num)| {
+            if num == 0 {
+                None
+            } else {
+                Some((num % 10, num / 10))
+            }
+        })
+        .map(|(rem, _)| rem as i32)
+        .collect::<Vec<i32>>()
+        .iter()
+        .rev()
+        .fold(None, |head, &digit| {
+            Some(Box::new(ListNode {
+                val: digit,
+                next: head,
+            }))
+        })
+    }
+
+    fn num_from_list(l: Option<Box<ListNode>>) -> i64 {
+        successors(l.as_ref(), |&node| node.next.as_ref())
+            .fold((0_i64, 1), |(num, mult), node| {
+                (num + node.val as i64 * mult, mult * 10)
+            })
+            .0
+    }
 
     #[test]
     fn example1() {

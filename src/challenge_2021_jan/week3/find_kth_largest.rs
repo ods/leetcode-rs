@@ -4,7 +4,7 @@
 #[cfg(disabled)]
 use std::cmp::Ordering::*;
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     #[cfg(disable)]

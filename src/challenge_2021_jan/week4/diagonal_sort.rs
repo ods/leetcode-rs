@@ -1,7 +1,7 @@
 // Sort the Matrix Diagonally
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/582/week-4-january-22nd-january-28th/3614/
 
-struct Solution;
+pub struct Solution;
 
 pub struct DiagIndexesIter {
     size: (usize, usize),

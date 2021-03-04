@@ -1,4 +1,4 @@
-mod week2;
-mod week3;
-mod week4;
-mod week5;
+pub mod week2;
+pub mod week3;
+pub mod week4;
+pub mod week5;

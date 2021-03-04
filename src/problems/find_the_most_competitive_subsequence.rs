@@ -1,7 +1,7 @@
 // 1673. Find the Most Competitive Subsequence
 // https://leetcode.com/problems/find-the-most-competitive-subsequence/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     // Causes timeout

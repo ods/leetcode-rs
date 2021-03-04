@@ -1,7 +1,7 @@
 // Get Maximum in Generated Array
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/581/week-3-january-15th-january-21st/3605/
 
-struct Solution;
+pub struct Solution;
 
 const SIZE: usize = 101;
 

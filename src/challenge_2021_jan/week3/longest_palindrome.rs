@@ -1,7 +1,7 @@
 // Longest Palindromic Substring
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/581/week-3-january-15th-january-21st/3609/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn longest_palindrome(s: String) -> String {

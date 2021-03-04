@@ -1,7 +1,7 @@
 // Longest Word in Dictionary through Deleting
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/587/week-4-february-22nd-february-28th/3649/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn find_longest_word(s: String, mut d: Vec<String>) -> String {

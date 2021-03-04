@@ -1,7 +1,7 @@
 // Score of Parentheses
 // https://leetcode.com/explore/challenge/card/february-leetcoding-challenge-2021/587/week-4-february-22nd-february-28th/3651/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn score_of_parentheses(s: String) -> i32 {

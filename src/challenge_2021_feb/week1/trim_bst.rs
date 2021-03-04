@@ -4,7 +4,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
-struct Solution;
+pub struct Solution;
 
 // Definition for a binary tree node.
 #[derive(Debug, PartialEq, Eq)]

@@ -1,7 +1,7 @@
 // Concatenation of Consecutive Binary Numbers
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/582/week-4-january-22nd-january-28th/3618/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn concatenated_binary(n: i32) -> i32 {

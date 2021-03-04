@@ -1,7 +1,7 @@
 // Set Mismatch
 // https://leetcode.com/explore/challenge/card/march-leetcoding-challenge-2021/588/week-1-march-1st-march-7th/3658/
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn find_error_nums(mut nums: Vec<i32>) -> Vec<i32> {
