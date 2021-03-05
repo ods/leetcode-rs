@@ -57,21 +57,21 @@ impl TreeNode {
     }
 }
 
+pub fn node(
+    val: i32,
+    left: Option<Rc<RefCell<TreeNode>>>,
+    right: Option<Rc<RefCell<TreeNode>>>,
+) -> Option<Rc<RefCell<TreeNode>>> {
+    Some(Rc::new(RefCell::new(TreeNode { val, left, right })))
+}
+
+pub fn leaf(val: i32) -> Option<Rc<RefCell<TreeNode>>> {
+    node(val, None, None)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    fn node(
-        val: i32,
-        left: Option<Rc<RefCell<TreeNode>>>,
-        right: Option<Rc<RefCell<TreeNode>>>,
-    ) -> Option<Rc<RefCell<TreeNode>>> {
-        Some(Rc::new(RefCell::new(TreeNode { val, left, right })))
-    }
-
-    fn leaf(val: i32) -> Option<Rc<RefCell<TreeNode>>> {
-        node(val, None, None)
-    }
 
     #[test]
     fn test1() {
