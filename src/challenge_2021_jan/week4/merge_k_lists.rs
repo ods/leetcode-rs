@@ -1,20 +1,7 @@
 // Merge k Sorted Lists
 // https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/582/week-4-january-22nd-january-28th/3615/
 
-// Definition for singly-linked list.
-#[derive(PartialEq, Eq, Clone, Debug)]
-pub struct ListNode {
-    pub val: i32,
-    pub next: Option<Box<ListNode>>,
-}
-
-impl ListNode {
-    #[inline]
-    fn new(val: i32) -> Self {
-        ListNode { next: None, val }
-    }
-}
-
+use crate::linked_list::ListNode;
 pub struct Solution;
 
 use std::cmp::Ordering;
@@ -60,33 +47,9 @@ impl Solution {
 mod tests {
     use super::*;
 
-    fn vec_to_list(v: &[i32]) -> Option<Box<ListNode>> {
-        v.iter()
-            .rev()
-            .fold(None, |next, &val| Some(Box::new(ListNode { val, next })))
-    }
-
-    fn list_next(list: &mut Option<Box<ListNode>>) -> Option<i32> {
-        match list.take() {
-            None => None,
-            Some(inner) => {
-                *list = inner.next;
-                Some(inner.val)
-            }
-        }
-    }
-
-    fn list_to_vec(list: &mut Option<Box<ListNode>>) -> Vec<i32> {
-        let mut res = vec![];
-        while let Some(val) = list_next(list) {
-            res.push(val);
-        }
-        res
-    }
-
     fn check(src: &[&[i32]], expected: &[i32]) {
-        let lists = src.iter().copied().map(vec_to_list).collect();
-        let res = list_to_vec(&mut Solution::merge_k_lists(lists));
+        let lists = src.iter().copied().map(ListNode::from_slice).collect();
+        let res = ListNode::to_vec(&mut Solution::merge_k_lists(lists));
         assert_eq!(&res, expected);
     }
 
