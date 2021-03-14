@@ -4,3 +4,4 @@ pub mod has_all_codes;
 pub mod int_to_roman;
 pub mod num_factored_binary_trees;
 pub mod remove_palindrome_sub;
+pub mod swap_nodes;
