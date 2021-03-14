@@ -6,6 +6,8 @@ use crate::linked_list::ListNode;
 pub struct Solution;
 
 impl Solution {
+    // First solution with intermediate vector
+    #[cfg(disable)]
     pub fn swap_nodes(
         mut head: Option<Box<ListNode>>,
         k: i32,
@@ -27,6 +29,42 @@ impl Solution {
             inner.next = head;
             head = Some(inner);
         }
+        head
+    }
+
+    // Better solution without additional allocations
+    pub fn swap_nodes(
+        mut head: Option<Box<ListNode>>,
+        k: i32,
+    ) -> Option<Box<ListNode>> {
+        let mut len = 0;
+        let mut node = &head;
+        while let Some(inner) = node {
+            node = &inner.next;
+            len += 1;
+        }
+
+        let idx1 = (k - 1).min(len - k);
+        let idx2 = (k - 1).max(len - k);
+        if idx1 == idx2 {
+            return head;
+        }
+
+        let mut node = &mut head;
+        for _ in 0..idx1 as usize {
+            node = &mut node.as_mut().unwrap().next;
+        }
+        let &mut ListNode {
+            ref mut next,
+            val: ref mut val1,
+        } = node.as_mut().unwrap().as_mut();
+        node = next;
+        for _ in idx1 + 1..idx2 {
+            node = &mut node.as_mut().unwrap().next;
+        }
+        let val2 = &mut node.as_mut().unwrap().val;
+        std::mem::swap(val1, val2);
+
         head
     }
 }
