@@ -1,12 +1,13 @@
 // Encode and Decode TinyURL
 // https://leetcode.com/explore/challenge/card/march-leetcoding-challenge-2021/590/week-3-march-15th-march-21st/3673/
 
-use std::{collections::HashMap, rc::Rc};
+use std::{
+    cell::{RefCell, RefMut},
+    collections::HashMap,
+    rc::Rc,
+};
 
-pub struct Codec {
-    by_long: HashMap<Rc<String>, usize>,
-    by_idx: Vec<Rc<String>>,
-}
+pub struct Codec(RefCell<(HashMap<Rc<String>, usize>, Vec<Rc<String>>)>);
 
 const ALPHABET: &[u8; 62] =
     b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -43,18 +44,15 @@ const SHORT_PREFIX: &str = "http://tinyurl.com/";
 
 impl Codec {
     pub fn new() -> Self {
-        Self {
-            by_long: HashMap::new(),
-            by_idx: Vec::new(),
-        }
+        Self(RefCell::new((HashMap::new(), Vec::new())))
     }
 
     // Encodes a URL to a shortened URL.
-    pub fn encode(&mut self, long: String) -> String {
-        let Self {
-            ref mut by_long,
-            ref mut by_idx,
-        } = self;
+    pub fn encode(&self, long: String) -> String {
+        let (mut by_long, mut by_idx) =
+            RefMut::map_split(self.0.borrow_mut(), |borrow| {
+                (&mut borrow.0, &mut borrow.1)
+            });
         let long = Rc::new(long);
         let idx = *by_long.entry(long.clone()).or_insert_with(|| {
             by_idx.push(long);
@@ -71,7 +69,7 @@ impl Codec {
         // Leetcode's version of rust have no `strip_prefix()`
         // let idx = base62_decode(short.strip_prefix(SHORT_PREFIX).unwrap());
         let idx = base62_decode(&short[SHORT_PREFIX.len()..]);
-        (*self.by_idx[idx]).clone()
+        (*self.0.borrow().1[idx]).clone()
     }
 }
 
@@ -96,7 +94,7 @@ mod tests {
 
     #[test]
     fn simple_round() {
-        let mut codec = Codec::new();
+        let codec = Codec::new();
         let long1 = "https://leetcode.com/problems/encode-and-decode-tinyurl/";
         let long2 = "https://leetcode.com/problems/encode-and-decode-strings/";
         let short1 = codec.encode(long1.to_string());

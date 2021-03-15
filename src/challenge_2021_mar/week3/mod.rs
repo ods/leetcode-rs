@@ -1,1 +1,1 @@
-pub mod tinyurl;
+pub mod design_tinyurl;
