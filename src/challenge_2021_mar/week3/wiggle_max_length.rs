@@ -3,15 +3,17 @@
 
 pub struct Solution;
 
-enum State {
-    Any(i32),
-    Min(i32),
-    Max(i32),
-}
-
 impl Solution {
+    #[cfg(disable)]
     pub fn wiggle_max_length(nums: Vec<i32>) -> i32 {
+        enum State {
+            Any(i32),
+            Min(i32),
+            Max(i32),
+        }
+
         use State::*;
+
         let mut state = Any(nums[0]);
         let mut count = 1;
         for &num in nums[1..].iter() {
@@ -31,6 +33,19 @@ impl Solution {
                     state = Max(num);
                 }
                 _ => {}
+            }
+        }
+        count
+    }
+
+    pub fn wiggle_max_length(nums: Vec<i32>) -> i32 {
+        let mut prev_sign = 0;
+        let mut count = 1;
+        for window in nums.windows(2) {
+            let sign = (window[1] - window[0]).signum();
+            if sign != 0 && sign != prev_sign {
+                count += 1;
+                prev_sign = sign;
             }
         }
         count
