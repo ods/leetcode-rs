@@ -62,4 +62,10 @@ mod tests {
             64
         );
     }
+
+    #[test]
+    fn test_big() {
+        // Actually exceeds the limit in the problem description
+        assert_eq!(Solution::count_substrings("a".repeat(10000)), 50005000);
+    }
 }
