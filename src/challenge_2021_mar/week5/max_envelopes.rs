@@ -3,27 +3,29 @@
 
 pub struct Solution;
 
+use std::{
+    cmp::Reverse,
+    collections::BTreeSet,
+    ops::Bound::{Excluded, Unbounded},
+};
+
 impl Solution {
-    // First accepted, but slow
     pub fn max_envelopes(mut envelopes: Vec<Vec<i32>>) -> i32 {
-        envelopes.sort_unstable();
-        let mut seen = std::collections::BTreeMap::<(i32, i32), i32>::new();
-        let mut max_len = 0;
+        // Reverse by height to disconnect envelopes with the same width
+        envelopes.sort_unstable_by_key(|env| (env[0], Reverse(env[1])));
+        // The set of values for the longest increasing subsequence
+        let mut lis = BTreeSet::<i32>::new();
         for env in envelopes {
-            let len = seen.range(..(env[1], 0)).rev().fold(
-                0,
-                |max_len, (&(_, x), &len)| {
-                    if x < env[0] {
-                        max_len.max(len)
-                    } else {
-                        max_len
-                    }
-                },
-            ) + 1;
-            max_len = max_len.max(len);
-            seen.insert((env[1], env[0]), len);
+            let height = env[1];
+            if lis.insert(height) {
+                // Replace the first value bigger than one we just inserted
+                lis.range((Excluded(height), Unbounded))
+                    .next()
+                    .copied()
+                    .map(|height| lis.remove(&height));
+            };
         }
-        max_len
+        lis.len() as _
     }
 }
 
