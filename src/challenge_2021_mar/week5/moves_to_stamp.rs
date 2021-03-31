@@ -7,78 +7,41 @@ impl Solution {
     pub fn moves_to_stamp(stamp: String, target: String) -> Vec<i32> {
         let stamp = stamp.as_bytes();
         let s_len = stamp.len();
-        let target = target.as_bytes();
+        let mut target = target.into_bytes();
         let t_len = target.len();
-        // Positions of letters in stamp
-        let mut s_ps = vec![Vec::<usize>::new(); (b'z' - b'a' + 1) as usize];
-        for (i, &b) in stamp.iter().enumerate() {
-            s_ps[(b - b'a') as usize].push(i);
-        }
-
-        let mut till_end = Vec::<i32>::new(); // Apply at the end in reverse order
         let mut res = Vec::new();
+        let mut stamped_total = 0;
 
-        let mut from_start = true; // Matching from start is required?
-        let mut pos = 0;
+        while stamped_total < t_len {
+            let mut was_stamped = false;
+            'mid: for i in 0..=t_len - s_len {
+                if res.contains(&(i as i32)) {
+                    continue;
+                }
 
-        while pos < t_len {
-            let mut m_len = 0;
-            if from_start {
-                while m_len < s_len
-                    && pos + m_len < t_len
-                    && target[pos + m_len] == stamp[m_len]
-                {
-                    m_len += 1;
-                }
-                if m_len == 0 {
-                    return Vec::new();
-                }
-                if m_len == s_len {
-                    till_end.push(pos as i32);
-                    from_start = false;
-                } else {
-                    res.push(pos as i32);
-                    from_start = true;
-                }
-            } else {
-                let b = target[pos + m_len];
-                let mut ps = s_ps[(b - b'a') as usize].clone();
-                if ps.is_empty() {
-                    return Vec::new();
-                }
-                m_len += 1;
-                while pos + m_len < t_len {
-                    let mut next_ps = Vec::<usize>::new();
-                    let b = target[pos + m_len];
-                    for &p in &ps {
-                        if p < s_len - 1 && b == stamp[p + 1] {
-                            next_ps.extend(&s_ps[(b - b'a') as usize]);
-                        }
+                let mut stamped = 0;
+                for (&sb, &tb) in stamp.iter().zip(target[i..].iter()) {
+                    if tb == sb {
+                        stamped += 1;
+                    } else if tb != b'?' {
+                        continue 'mid;
                     }
-                    if next_ps.is_empty() {
-                        break;
-                    }
-                    m_len += 1;
-                    ps = next_ps;
                 }
-                let &s_p = ps.last().unwrap();
-                let start = (pos + m_len - s_p - 1) as i32;
-                if s_p == s_len - 1 {
-                    till_end.push(start);
-                } else {
-                    res.push(start)
+
+                if stamped != 0 {
+                    // There is no `fill` method in Leetcode's version
+                    target[i..i + s_len].iter_mut().for_each(|b| *b = b'?');
+                    was_stamped = true;
+                    stamped_total += stamped;
+                    res.push(i as i32);
                 }
-                from_start = s_p != s_len - 1;
             }
-            pos += m_len;
-        }
-        if from_start {
-            // The last match wan't till the end
-            return Vec::new();
+            if !was_stamped {
+                return Vec::new();
+            }
         }
 
-        till_end.reverse();
-        res.extend(till_end);
+        res.reverse();
         res
     }
 }
@@ -112,8 +75,8 @@ mod tests {
     #[test]
     fn test_bad_case() {
         let stamp = "a".repeat(30) + "b";
-        let pattern = "a".repeat(5) + "b";
-        let target = stamp.clone() + &pattern.as_str().repeat(5);
+        let pattern = "a".repeat(30) + "b";
+        let target = stamp.clone() + &pattern.as_str().repeat(30);
         check(&stamp, &target);
     }
 }
